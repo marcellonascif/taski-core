@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Req } from '@nestjs/common';
 import { AutoCompleteService } from './auto-complete.service';
+import { Request } from 'express';
 
 @Controller('auto-complete')
 export class AutoCompleteController {
@@ -11,8 +12,7 @@ export class AutoCompleteController {
   }
 
   @Post()
-  async autoCompleteTask(@Req() req: any): Promise<any> {
-    const userPrompt = JSON.stringify(req.body.prompt);
-    return this.autoCompleteService.autoCompleteTask(userPrompt);
+  async autoCompleteTask(@Req() req: Request): Promise<any> {
+    return this.autoCompleteService.autoCompleteTask(req);
   }
 }

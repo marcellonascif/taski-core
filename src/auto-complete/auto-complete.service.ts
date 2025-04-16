@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { LlmGeminiService } from './llm-client/llm-gemini.service';
+import { Request } from 'express';
 
-const systemPrompt = 'Você é um assistente que completa tarefas em JSON. Dado um objeto JSON com alguns campos em branco ou vazios, preencha apenas os campos faltantes de forma coerente com o contexto, ou seja, o que já está preenchido no JSON. Sempre devolva o mesmo objeto JSON, com os campos preenchidos. Não adicione nenhum comentário sobre a resposta. Não adicione nenhum campo novo';
+const systemPrompt = `Você é um assistente que completa tarefas em JSON.
+Dado um objeto JSON com alguns campos em branco ou vazios, preencha apenas os campos faltantes de forma coerente com o contexto, ou seja, o que já está preenchido no JSON.
+Sempre devolva o mesmo objeto JSON, com os campos preenchidos.
+Não adicione nenhum comentário sobre a resposta.
+Não adicione nenhum campo novo.
+Me mande o JSON formatado, com espacos e quebras de linha, para facilitar a leitura.
+Sempre corrija erros de português em todas as respostas, como palavras faltantes entre outros, mesmo que o usuário tenha escrito errado.`;
 
 @Injectable()
 export class AutoCompleteService {
@@ -11,8 +18,8 @@ export class AutoCompleteService {
         return 'Auto-complete service is working!';
     }
 
-    async autoCompleteTask(userPrompt: string): Promise<any> {
-        // await this.llmClient.connect();
+    async autoCompleteTask(req: Request): Promise<string> {
+        const userPrompt = JSON.stringify(req.body.prompt);
         return this.llmClient.generateText(systemPrompt, userPrompt);
     }
 }

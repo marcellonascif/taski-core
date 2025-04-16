@@ -10,9 +10,13 @@ export class LlmGeminiService implements LlmClient, OnModuleInit {
     private model: ChatGoogleGenerativeAI;
     private readonly apiKey: string = process.env.GOOGLE_API_KEY || '';
 
+    async onModuleInit(): Promise<void> {
+        await this.connect();
+    }
+
     private async connect(): Promise<void> {
         this.model = new ChatGoogleGenerativeAI({
-            model: "gemini-2.0-flash",
+            model: "gemini-2.0-flash-lite",
             temperature: 0.2,
             maxRetries: 2,
             maxOutputTokens: 1000,
@@ -20,20 +24,16 @@ export class LlmGeminiService implements LlmClient, OnModuleInit {
         });
     }
 
-    async onModuleInit(): Promise<void> {
-        await this.connect();
-    }
-
     async generateText(systemPrompt: string, userPrompt: string): Promise<any> {
         const response = await this.model.invoke([
-                {
-                    role: 'system',
-                    content: systemPrompt
-                },
-                {
-                    role: 'user',
-                    content: userPrompt
-                }
+            {
+                role: 'system',
+                content: systemPrompt
+            },
+            {
+                role: 'user',
+                content: userPrompt
+            }
         ]);
 
         console.log('Response from Gemini:', response);
