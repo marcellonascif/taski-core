@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { LlmModule } from './services/llm/llm.module';
+import { AutoCompleteModule } from './services/auto-complete/auto-complete.module';
 
 @Module({
-  imports: [LlmModule]
+    imports: [AutoCompleteModule],
 })
 export class ApplicationModule {}

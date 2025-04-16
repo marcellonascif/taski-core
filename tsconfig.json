@@ -12,7 +12,7 @@
         "baseUrl": "./",
         "paths": {
             "@application/*": ["src/application/*"],
-            "@http/*": ["src/http/*"],
+            "@http/*": ["src/http/*"]
         },
         "incremental": true,
         "skipLibCheck": true,

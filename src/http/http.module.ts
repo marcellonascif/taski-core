@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { LlmController } from './controllers/llm/llm.controller';
-import { LlmModule } from '@application/services/llm/llm.module';
+import { AutoCompleteModule } from '@application/services/auto-complete/auto-complete.module';
+import { AutoCompleteController } from './controllers/auto-complete/auto-complete.controller';
 
 @Module({
-  imports: [LlmModule],
-  controllers: [LlmController],
+    imports: [AutoCompleteModule],
+    controllers: [AutoCompleteController],
 })
 export class HttpModule {}
