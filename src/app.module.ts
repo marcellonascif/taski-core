@@ -1,11 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { HttpModule } from './infrastructure/controllers/http.module';
-import { ApplicationModule } from './application/services/application.module';
+import { AutoCompleteModule } from './auto-complete/auto-complete.module';
 
 @Module({
-    imports: [HttpModule, ApplicationModule],
+    imports: [AutoCompleteModule],
     controllers: [AppController],
     providers: [AppService],
 })
