@@ -11,8 +11,8 @@ export class AutoCompleteController {
   }
 
   @Post()
-  async generateText(@Req() req: any): Promise<any> {
-    const prompt = JSON.stringify(req.body.prompt);
-    return this.autoCompleteService.generateText(prompt);
+  async autoCompleteTask(@Req() req: any): Promise<any> {
+    const userPrompt = JSON.stringify(req.body.prompt);
+    return this.autoCompleteService.autoCompleteTask(userPrompt);
   }
 }
