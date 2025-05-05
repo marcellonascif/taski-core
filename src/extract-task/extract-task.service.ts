@@ -9,11 +9,11 @@ Dado um objeto JSON com alguns campos em branco ou vazios, preencha apenas os ca
 export class ExtractTaskService {
     constructor(private readonly llmClient: LlmGeminiService) {}
 
-    getAutoComplete(): string {
+    getExtractTask(): string {
         return 'Extract service is working!';
     }
 
-    async autoCompleteTask(req: Request): Promise<string> {
+    async postExtractTask(req: Request): Promise<string> {
         const userPrompt = JSON.stringify(req.body.prompt);
         return this.llmClient.generateText(systemPrompt, userPrompt);
     }

@@ -8,11 +8,11 @@ export class ExctratTaskController {
 
   @Get()
   getAutoComplete(): any {
-    return this.extractTaskService.getAutoComplete();
+    return this.extractTaskService.getExtractTask();
   }
 
   @Post()
   async autoCompleteTask(@Req() req: Request): Promise<any> {
-    return this.extractTaskService.autoCompleteTask(req);
+    return this.extractTaskService.postExtractTask(req);
   }
 }
