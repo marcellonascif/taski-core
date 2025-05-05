@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AutoCompleteModule } from './auto-complete/auto-complete.module';
+import { ExtractTaskModule } from './extract-task/extract-task.module';
 
 @Module({
-    imports: [AutoCompleteModule],
+    imports: [ExtractTaskModule],
     controllers: [AppController],
     providers: [AppService],
 })
