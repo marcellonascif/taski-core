@@ -2,7 +2,9 @@ import { Controller, Get, Post, Req } from '@nestjs/common';
 import { ExtractTaskService } from './extract-task.service';
 import { Request } from 'express';
 
-@Controller('extract-task')
+const EXTRACT_TASK_PATH = process.env.EXTRACT_TASK_PATH || 'extract-task';
+
+@Controller(EXTRACT_TASK_PATH)
 export class ExctratTaskController {
   constructor(private readonly extractTaskService: ExtractTaskService) {}
 
