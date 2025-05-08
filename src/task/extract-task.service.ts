@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { LlmGeminiService } from './llm-client/llm-gemini.service';
-import { Request } from 'express';
+import { LlmGeminiService } from '../llm-client/llm-gemini.service';
 
 let systemPrompt = `Você é um assistente que extrai informações de uma mensagem para criar tarefas dos usuários. Dado uma mensagem de um usuário, você deve extrair as informações relevantes e criar uma tarefa.
 Informações de uma tarefa:
@@ -10,7 +9,7 @@ Informações de uma tarefa:
     "due_date": "Data e hora que o usuário diz que a tarefa deve estar concluída (não necessariamente a data de entrega)",
     "priority": "Nivel de prioridade da tarefa (baixa, média, alta). Tarefas de prioridade baixa são aquelas que podem ser adiadas ou não são urgentes. Tarefas de prioridade média são aquelas que devem ser feitas em breve, mas não são urgentes. Tarefas de prioridade alta são aquelas que devem ser feitas o mais rápido possível e não podem ser adiadas.",
     "duration": "Duração para realizar a tarefa (em minutos)",
-    "tags": Lista de tags [] que podem ser associadas a tarefa baseado nas outras informações. Exemplo: ['trabalho', 'pessoal', 'estudo', 'saúde', 'lazer', 'casa', 'compras', 'viagem', 'finanças', 'outros']
+    "category": Categoria que pode ser associadas a tarefa baseado nas outras informações. Exemplo: ['trabalho', 'pessoal', 'estudo', 'saúde', 'lazer', 'casa', 'compras', 'viagem', 'finanças', 'outros']. A tarefa só pode ser associada a uma única categoria. Você deve escolher a categoria que mais se encaixa com a tarefa. Caso não tenha certeza, escolha 'outros'",
 A tarefa deve ser retornada em formato JSON preenchendo o schema acima.
 Você deve inferir as informações que forem possíveis de acordo com o contexto da mensagem. Caso não tenha informações suficientes para preencher algum campo, você deve retornar o valor null para esse campo.
 Nunca marque tarefas em horários anteriores a data atual.
@@ -25,11 +24,11 @@ export class ExtractTaskService {
         return 'Extract service is working!';
     }
 
-    async postExtractTask(req: Request): Promise<string> {
-        const userPrompt = JSON.stringify(req.body.prompt);
+    async postExtractTask(body: any): Promise<string> {
+        const userPrompt = JSON.stringify(body.prompt);
         const currentDate = new Date().toISOString();
         console.log('Current date:', currentDate);
         systemPrompt = `${systemPrompt}\nData atual: ${currentDate}`;
-        return this.llmClient.generateText(systemPrompt, userPrompt);
+        return await this.llmClient.generateText(systemPrompt, userPrompt);
     }
 }

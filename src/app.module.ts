@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ExtractTaskModule } from './extract-task/extract-task.module';
+import { ExtractTaskModule } from './task/extract-task.module';
 
 @Module({
     imports: [ExtractTaskModule],

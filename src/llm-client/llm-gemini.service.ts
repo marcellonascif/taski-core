@@ -16,7 +16,7 @@ export class LlmGeminiService implements LlmClient, OnModuleInit {
 
     private async connect(): Promise<void> {
         this.model = new ChatGoogleGenerativeAI({
-            model: "gemini-2.0-flash-lite",
+            model: "gemini-2.0-flash",
             temperature: 0.3,
             maxRetries: 2,
             maxOutputTokens: 2000,

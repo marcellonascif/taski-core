@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ExtractTaskService } from './extract-task.service';
-import { Request } from 'express';
+import { ExtractTaskDto } from './dto/extract-task.dto';
 
 const EXTRACT_TASK_PATH = process.env.EXTRACT_TASK_PATH || 'extract-task';
 
@@ -14,7 +14,7 @@ export class ExctratTaskController {
   }
 
   @Post()
-  async autoCompleteTask(@Req() req: Request): Promise<any> {
-    return this.extractTaskService.postExtractTask(req);
+  async autoCompleteTask(@Body() extractTaskDto: ExtractTaskDto): Promise<any> {
+    return this.extractTaskService.postExtractTask(extractTaskDto);
   }
 }
