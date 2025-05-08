@@ -20,10 +20,6 @@ Explique o porque você tomou as decisões que tomou para criar a tarefa. Você 
 export class ExtractTaskService {
     constructor(private readonly llmClient: LlmGeminiService) {}
 
-    getExtractTask(): string {
-        return 'Extract service is working!';
-    }
-
     async postExtractTask(body: any): Promise<string> {
         const userPrompt = JSON.stringify(body.prompt);
         const currentDate = new Date().toISOString();
