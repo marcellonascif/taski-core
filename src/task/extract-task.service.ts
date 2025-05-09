@@ -9,8 +9,8 @@ Informações de uma tarefa:
     "due_date": "Data e hora que o usuário diz que a tarefa deve estar concluída (não necessariamente a data de entrega)",
     "priority": "Nivel de prioridade da tarefa (baixa, média, alta). Tarefas de prioridade baixa são aquelas que podem ser adiadas ou não são urgentes. Tarefas de prioridade média são aquelas que devem ser feitas em breve, mas não são urgentes. Tarefas de prioridade alta são aquelas que devem ser feitas o mais rápido possível e não podem ser adiadas.",
     "duration": "Duração para realizar a tarefa (em minutos)",
-    "category": Categoria que pode ser associadas a tarefa baseado nas outras informações. Exemplo: ['trabalho', 'pessoal', 'estudo', 'saúde', 'lazer', 'casa', 'compras', 'viagem', 'finanças', 'outros']. A tarefa só pode ser associada a uma única categoria. Você deve escolher a categoria que mais se encaixa com a tarefa. Caso não tenha certeza, escolha 'outros'",
-A tarefa deve ser retornada no formato JSON, mas em texto puro. Sem bloco de código ou anotação markdown.
+    "category": Categoria que pode ser associadas a tarefa baseado nas outras informações. Exemplo: ['trabalho', 'faculdade', 'saúde', 'lazer', 'casa', 'compras', 'viagem', 'finanças', 'outros']. A tarefa só pode ser associada a uma única categoria. Você deve escolher a categoria que mais se encaixa com a tarefa. Caso não tenha certeza, escolha 'outros'",
+Me retorne apenas o JSON com as informações da tarefa.
 Você deve inferir as informações que forem possíveis de acordo com o contexto da mensagem. Caso não tenha informações suficientes para preencher algum campo, você deve retornar o valor null para esse campo.
 Nunca marque tarefas em horários anteriores a data atual.
 Preencha os campos na linguagem que estiver o prompt do usuário, isto é, se o prompt estiver em inglês, os campos devem ser preenchidos em inglês. Se o prompt estiver em português, os campos devem ser preenchidos em português.
@@ -29,20 +29,23 @@ export class ExtractTaskService {
         const llmResponse = await this.llmClient.generateText(systemPrompt, userPrompt);
         console.log('LLM response:', llmResponse);
 
+        const text = llmResponse.trim();
+
         try {
-            const task = JSON.parse(llmResponse);
+            const startIndex = text.indexOf('{');
+            const endIndex = text.lastIndexOf('}');
+
+            if (startIndex === -1 || endIndex === -1) {
+                throw new BadRequestException('Invalid response format from LLM. Expected JSON object.');
+            }
+
+            const jsonString = text.substring(startIndex, endIndex + 1);
+
+            const task = JSON.parse(jsonString);
             console.log('Parsed task:', task);
 
             return task;
         } catch (error) {
-            const match = llmResponse.match(/\{[\s\S]*\}$/);
-            if (match) {
-                try {
-                    console.log('Matched JSON:', match[0]);
-                    return JSON.parse(match[0]);
-                } catch (error) {}
-            }
-
             throw new BadRequestException('Invalid response format from LLM. Expected JSON object.');
         }
     }
