@@ -36,8 +36,6 @@ export class LlmGeminiService implements LlmClient, OnModuleInit {
             }
         ]);
 
-        console.log('Response from Gemini:', response);
-
         return response.text;
     }
 }
