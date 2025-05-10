@@ -6,6 +6,7 @@ npm-debug.log
 dist
 build
 coverage
+generated
 
 # Arquivos de ambiente
 .env
