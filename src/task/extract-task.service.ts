@@ -23,7 +23,7 @@ Preencha os campos na linguagem que estiver o prompt do usuário, isto é, se o 
 export class ExtractTaskService {
   constructor(private readonly llmClient: LlmGeminiService) {}
 
-  async postExtractTask(body: any): Promise<any> {
+  async postExtract(body: any): Promise<any> {
     const userPrompt = JSON.stringify(body.prompt);
     const currentDate = new Date().toISOString();
     console.log('Current date:', currentDate);
