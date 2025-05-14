@@ -33,7 +33,7 @@ RUN npm ci --omit=dev
 # Copiar código compilado do estágio builder
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/generated ./generated
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 # Expor a porta que a aplicação usa
 EXPOSE 3000
