@@ -58,6 +58,7 @@ $ npm run test:cov
 ```
 
 ## Run Dockerfile
+
 ```bash
 # build Docker image
 $ docker build --tag taski-core .
@@ -65,7 +66,9 @@ $ docker build --tag taski-core .
 # Create and run Docker container
 $ docker run --name taski-core-container --rm --env-file .env -p 3000:3000 taski-core
 ```
+
 ## Or just
+
 ```bash
 $ docker build --tag taski-core . && docker run --name taski-core-container --rm --env-file .env -p 3000:3000 taski-core
 ```

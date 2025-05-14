@@ -21,38 +21,44 @@ Preencha os campos na linguagem que estiver o prompt do usuário, isto é, se o 
 
 @Injectable()
 export class ExtractTaskService {
-    constructor(private readonly llmClient: LlmGeminiService) {}
+  constructor(private readonly llmClient: LlmGeminiService) {}
 
-    async postExtractTask(body: any): Promise<any> {
-        const userPrompt = JSON.stringify(body.prompt);
-        const currentDate = new Date().toISOString();
-        console.log('Current date:', currentDate);
+  async postExtractTask(body: any): Promise<any> {
+    const userPrompt = JSON.stringify(body.prompt);
+    const currentDate = new Date().toISOString();
+    console.log('Current date:', currentDate);
 
-        const systemPrompt = `${BASE_SYSTEM_PROMPT}\nData atual: ${currentDate}`;
-        const llmResponse = await this.llmClient.generateText(systemPrompt, userPrompt);
-        console.log('LLM response:', llmResponse);
+    const systemPrompt = `${BASE_SYSTEM_PROMPT}\nData atual: ${currentDate}`;
+    const llmResponse = await this.llmClient.generateText(
+      systemPrompt,
+      userPrompt,
+    );
+    console.log('LLM response:', llmResponse);
 
-        return this.parseResponse(llmResponse);
+    return this.parseResponse(llmResponse);
+  }
 
+  private parseResponse(response: string): any {
+    const text = response.trim();
+
+    try {
+      const startIndex = text.indexOf('{');
+      const endIndex = text.lastIndexOf('}');
+
+      if (startIndex === -1 || endIndex === -1) {
+        throw new BadRequestException(
+          'Invalid response format from LLM. Expected JSON object.',
+        );
+      }
+
+      const jsonString = text.substring(startIndex, endIndex + 1);
+      const task = JSON.parse(jsonString);
+
+      return task;
+    } catch (error) {
+      throw new BadRequestException(
+        'Invalid response format from LLM. Expected JSON object.',
+      );
     }
-
-    private parseResponse(response: string): any {
-        const text = response.trim();
-
-        try {
-            const startIndex = text.indexOf('{');
-            const endIndex = text.lastIndexOf('}');
-
-            if (startIndex === -1 || endIndex === -1) {
-                throw new BadRequestException('Invalid response format from LLM. Expected JSON object.');
-            }
-
-            const jsonString = text.substring(startIndex, endIndex + 1);
-            const task = JSON.parse(jsonString);
-
-            return task;
-        } catch (error) {
-            throw new BadRequestException('Invalid response format from LLM. Expected JSON object.');
-        }
-    }
+  }
 }

@@ -1,3 +1,3 @@
 export class ExtractTaskDto {
-    prompt: string;
+  prompt: string;
 }
