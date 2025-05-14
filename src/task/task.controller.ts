@@ -8,7 +8,7 @@ const TASK_PATH = process.env.TASK_PATH || 'task';
 
 @Controller(TASK_PATH)
 export class TaskController {
-  constructor(private readonly createTaskService: CreateTaskService,private readonly extractTaskService: ExtractTaskService) {}
+  constructor(private readonly createTaskService: CreateTaskService, private readonly extractTaskService: ExtractTaskService) {}
 
   @Get()
   getTask(): string {

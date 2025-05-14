@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { LlmGeminiService } from 'src/llm/llm-gemini.service';
+import { LlmGeminiService } from '@llm/llm-gemini.service';
 
 const BASE_SYSTEM_PROMPT = `Você é um assistente que extrai informações de uma mensagem para criar tarefas dos usuários. Dado uma mensagem de um usuário, você deve extrair as informações relevantes e criar uma tarefa.
 Informações de uma tarefa:
