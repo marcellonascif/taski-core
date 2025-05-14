@@ -1,13 +1,13 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { config } from 'dotenv';
 import { LlmClient } from './llm-client.interface';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { ChatPromptTemplate } from '@langchain/core/prompts'
 
-config();
 
 @Injectable()
 export class LlmGeminiService implements LlmClient, OnModuleInit {
     private model: ChatGoogleGenerativeAI;
+    private promptTemplate: any;
     private readonly apiKey: string = process.env.GOOGLE_API_KEY || '';
 
     async onModuleInit(): Promise<void> {
@@ -23,6 +23,8 @@ export class LlmGeminiService implements LlmClient, OnModuleInit {
             apiKey: this.apiKey,
         });
     }
+
+    private
 
     async generateText(systemPrompt: string, userPrompt: string): Promise<any> {
         const response = await this.model.invoke([
