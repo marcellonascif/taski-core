@@ -4,11 +4,12 @@ import { ExtractTaskService } from './extract-task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { ExtractTaskDto } from './dto/extract-task.dto';
 
-const TASK_PATH = process.env.TASK_PATH || 'task';
-
-@Controller(TASK_PATH)
+@Controller('task')
 export class TaskController {
-  constructor(private readonly createTaskService: CreateTaskService, private readonly extractTaskService: ExtractTaskService) {}
+  constructor(
+    private readonly createTaskService: CreateTaskService,
+    private readonly extractTaskService: ExtractTaskService,
+  ) {}
 
   @Get()
   getTask(): string {
