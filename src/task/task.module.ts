@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { TaskController } from './task.controller';
+import { PrismaModule } from '@db/prisma.module';
+import { LlmGeminiService } from '@llm/llm-gemini.service';
 import { CreateTaskService } from './create-task.service';
 import { ExtractTaskService } from './extract-task.service';
-import { LlmGeminiService } from '@llm/llm-gemini.service';
-import { PrismaModule } from '@db/prisma.module';
+import { TaskController } from './task.controller';
 
 @Module({
   imports: [PrismaModule],

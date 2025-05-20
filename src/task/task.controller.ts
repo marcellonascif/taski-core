@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { CreateTaskService } from './create-task.service';
-import { ExtractTaskService } from './extract-task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { ExtractTaskDto } from './dto/extract-task.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { ExtractTaskService } from './extract-task.service';
 
 @Controller('task')
 export class TaskController {

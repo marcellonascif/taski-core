@@ -1,14 +1,13 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthDto } from './dto/auth.dto';
-
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '@users/users.service';
+import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly usersService: UsersService
+    private readonly usersService: UsersService,
   ) {}
 
   async login(authDto: AuthDto): Promise<{ access_token: string }> {

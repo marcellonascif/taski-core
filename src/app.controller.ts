@@ -1,6 +1,14 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth/auth.service';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth/auth.service';
 
 @Controller()
 export class AppController {
@@ -12,7 +20,7 @@ export class AppController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post("auth/login")
+  @Post('auth/login')
   async login(@Body() body: any): Promise<any> {
     return await this.authService.login(body);
   }

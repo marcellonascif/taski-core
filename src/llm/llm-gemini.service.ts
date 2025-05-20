@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { LlmClient } from './llm-client.interface';
-import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
+import { LlmClient } from './llm-client.interface';
 
 @Injectable()
 export class LlmGeminiService implements LlmClient, OnModuleInit {
