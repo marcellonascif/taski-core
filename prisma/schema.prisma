@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id             Int       @id @default(autoincrement())
+  id             String    @id @default(cuid())
   username       String    @unique
   email          String    @unique
   password       String
@@ -32,6 +32,6 @@ model Task {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
-  userId         Int
+  userId         String
   user           User      @relation(fields: [userId], references: [id])
 }
