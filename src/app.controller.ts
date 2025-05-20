@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly authService: AuthService) {}
 
   @Get()
   getHello(): string {
-    return this.appService.getHello();
+    return 'Main page of Taski!';
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post("auth/login")
+  async login(@Body() body: any): Promise<any> {
+    return await this.authService.login(body);
   }
 }
