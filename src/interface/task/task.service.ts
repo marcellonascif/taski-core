@@ -3,7 +3,7 @@ import { CreateTaskUseCase } from '@application/usecases/create-task.usecase';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
-export class CreateTaskService {
+export class TaskService {
   constructor(private readonly createTask: CreateTaskUseCase) {}
 
   async postCreate(createTaskDto: CreateTaskDto): Promise<any> {
