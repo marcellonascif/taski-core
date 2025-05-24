@@ -1,6 +1,6 @@
-import { TokenProvider } from "@application/tokens/token.provider";
-import { Injectable } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
+import { Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { TokenProvider } from '@application/tokens/token.provider';
 
 @Injectable()
 export class JwtTokenProvider extends TokenProvider {

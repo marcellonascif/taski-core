@@ -1,7 +1,7 @@
-import { UserRepository } from "@application/repositories/user.repository";
-import { PrismaService } from "@db/prisma.service";
-import { User } from "@domain/entities/user.entity";
-import { Injectable } from "@nestjs/common";
+import { Injectable } from '@nestjs/common';
+import { UserRepository } from '@application/repositories/user.repository';
+import { PrismaService } from '@db/prisma.service';
+import { User } from '@domain/entities/user.entity';
 
 @Injectable()
 export class PrismaUserRepository extends UserRepository {
@@ -12,12 +12,10 @@ export class PrismaUserRepository extends UserRepository {
     async findByEmail(email: string): Promise<User | null> {
         const foundUser = await this.prisma.user.findUnique({
             where: {
-                email: email
+                email: email,
             },
         });
 
-        return foundUser
-        ? User.create(foundUser)
-        : null;
+        return foundUser ? User.create(foundUser) : null;
     }
 }

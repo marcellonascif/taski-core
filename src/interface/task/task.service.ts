@@ -4,16 +4,16 @@ import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
-  constructor(private readonly createTask: CreateTaskUseCase) {}
+    constructor(private readonly createTask: CreateTaskUseCase) {}
 
-  async postCreate(createTaskDto: CreateTaskDto, user: any): Promise<any> {
-    const task = {
-      ...createTaskDto,
-      userId: user.userId,
+    async postCreate(createTaskDto: CreateTaskDto, user: any): Promise<any> {
+        const task = {
+            ...createTaskDto,
+            userId: user.userId,
+        };
+
+        const createdTask = this.createTask.execute(task);
+
+        return createdTask;
     }
-
-    const createdTask = this.createTask.execute(task);
-
-    return createdTask;
-  }
 }
