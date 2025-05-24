@@ -6,4 +6,8 @@ export class User {
     public readonly password: string,
     public readonly name: string,
   ) {}
+
+  static create({id, username, email, password, name}): User {
+    return new User(id, username, email, password, name);
+  }
 }

@@ -9,13 +9,15 @@ export class PrismaUserRepository extends UserRepository {
         super();
     }
 
-    async save(user: User): Promise<User> {
-        const createdUser: User = await this.prisma.user.create({
-            data: {
-                ...user,
+    async findByEmail(email: string): Promise<User | null> {
+        const foundUser = await this.prisma.user.findUnique({
+            where: {
+                email: email
             },
         });
 
-        return createdUser;
+        return foundUser
+        ? User.create(foundUser)
+        : null;
     }
 }
