@@ -17,7 +17,7 @@
       "@auth/*": ["src/auth/*"],
       "@db/*": ["src/db/*"],
       "@llm/*": ["src/llm/*"],
-      "@users/*": ["src/users/*"],
+      "@users/*": ["src/interface/users/*"],
     },
     "incremental": true,
     "skipLibCheck": true,

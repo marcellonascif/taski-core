@@ -5,7 +5,7 @@ import { TaskRepository } from '@application/repositories/task.repository';
 import { PrismaTaskRepository } from '@infrastructure/repositories/prisma-task.repository';
 import { LlmGeminiService } from '@llm/llm-gemini.service';
 import { CreateTaskService } from './create-task.service';
-import { ExtractTaskService } from './extract-task.service';
+// import { ExtractTaskService } from './extract-task.service';
 import { TaskController } from './task.controller';
 
 @Module({
@@ -15,7 +15,6 @@ import { TaskController } from './task.controller';
     CreateTaskService,
     CreateTaskUseCase,
     { provide: TaskRepository, useClass: PrismaTaskRepository },
-    ExtractTaskService,
     LlmGeminiService,
   ],
 })
