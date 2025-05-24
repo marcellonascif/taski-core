@@ -6,7 +6,7 @@ import { User } from "@domain/entities/user.entity";
 export class CreateUserUseCase {
   constructor(private readonly repo: UserRepository) {}
 
-  async execute(user: any): Promise<User> {
+  async execute(user: User): Promise<User> {
     return this.repo.save(user);
   }
 }

@@ -7,11 +7,11 @@ export class CreateTaskDto {
 
   @IsString()
   @IsOptional()
-  description?: string;
+  description: string | null;
 
   @IsString()
   @IsOptional()
-  plan?: string;
+  plan: string | null;
 
   @Type(() => Date)
   @IsDate()
@@ -20,7 +20,7 @@ export class CreateTaskDto {
   @IsOptional()
   @Type(() => Date)
   @IsDate()
-  dueDate?: Date;
+  dueDate: Date | null;
 
   @IsInt()
   priority: number;

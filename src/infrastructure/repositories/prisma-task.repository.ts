@@ -9,7 +9,7 @@ export class PrismaTaskRepository extends TaskRepository {
     super();
   }
 
-  async save(task: Task): Promise<Task> {
+  async save(task: any): Promise<Task> {
     const createdTask: Task = await this.prisma.task.create({
       data: {
         ...task,

@@ -6,8 +6,13 @@ import { CreateTaskDto } from './dto/create-task.dto';
 export class TaskService {
   constructor(private readonly createTask: CreateTaskUseCase) {}
 
-  async postCreate(createTaskDto: CreateTaskDto): Promise<any> {
-    const createdTask = this.createTask.execute(createTaskDto);
+  async postCreate(createTaskDto: CreateTaskDto, user: any): Promise<any> {
+    const task = {
+      ...createTaskDto,
+      userId: user.userId,
+    }
+
+    const createdTask = this.createTask.execute(task);
 
     return createdTask;
   }

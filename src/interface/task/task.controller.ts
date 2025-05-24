@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 import { TaskService } from './task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -17,10 +17,10 @@ export class TaskController {
     return 'Task is working just fine!';
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post('create')
-  async postCreate(@Body() createTaskDto: CreateTaskDto): Promise<any> {
-    return this.taskService.postCreate(createTaskDto);
+  async postCreate(@Body() createTaskDto: CreateTaskDto, @Request() req): Promise<any> {
+    return this.taskService.postCreate(createTaskDto, req.user);
   }
 
   // @Post('extract')
