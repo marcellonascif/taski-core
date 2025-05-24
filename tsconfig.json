@@ -14,7 +14,7 @@
       "@application/*": ["src/application/*"],
       "@domain/*": ["src/domain/*"],
       "@infrastructure/*": ["src/infrastructure/*"],
-      "@auth/*": ["src/auth/*"],
+      "@interface/*": ["src/interface/*"],
       "@db/*": ["src/db/*"],
       "@llm/*": ["src/llm/*"],
       "@users/*": ["src/interface/users/*"],

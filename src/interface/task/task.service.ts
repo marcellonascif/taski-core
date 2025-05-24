@@ -9,7 +9,7 @@ export class TaskService {
     async postCreate(createTaskDto: CreateTaskDto, user: any): Promise<any> {
         const task = {
             ...createTaskDto,
-            userId: user.userId,
+            userId: user.id,
         };
 
         const createdTask = this.createTask.execute(task);

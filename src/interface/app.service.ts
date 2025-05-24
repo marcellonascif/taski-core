@@ -3,7 +3,7 @@ import { SignInUseCase } from '@application/usecases/sign-in.usecase';
 import { SignInDto } from './dto/sign-in.dto';
 
 @Injectable()
-export class AuthService {
+export class AppService {
     constructor(private readonly signInUseCase: SignInUseCase) {}
 
     async handleSignIn(signInDto: SignInDto): Promise<any> {
