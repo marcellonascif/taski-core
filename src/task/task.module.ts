@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { CreateTaskUseCase } from '@application/usecases/create-task.usecase';
 import { PrismaModule } from '@db/prisma.module';
-import { TaskRepository } from '@domain/repositories/task.repository';
+import { TaskRepository } from '@application/repositories/task.repository';
 import { PrismaTaskRepository } from '@infrastructure/repositories/prisma-task.repository';
 import { LlmGeminiService } from '@llm/llm-gemini.service';
 import { CreateTaskService } from './create-task.service';
