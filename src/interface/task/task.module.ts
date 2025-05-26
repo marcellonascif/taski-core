@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
+import { LlmClient } from '@application/clients/llm.client';
 import { TaskRepository } from '@application/repositories/task.repository';
 import { CreateTaskUseCase } from '@application/usecases/create-task.usecase';
+import { ExtractTaskUseCase } from '@application/usecases/extract-task.usecase';
 import { PrismaModule } from '@db/prisma.module';
+import { GeminiLlmClient } from '@infrastructure/clients/gemini-llm.client';
 import { PrismaTaskRepository } from '@infrastructure/repositories/prisma-task.repository';
-import { LlmGeminiService } from '@llm/llm-gemini.service';
-import { ExtractTaskService } from './extract-task.service';
 import { TaskController } from './task.controller';
 import { TaskService } from './task.service';
 
@@ -13,10 +14,10 @@ import { TaskService } from './task.service';
     controllers: [TaskController],
     providers: [
         TaskService,
-        ExtractTaskService,
         CreateTaskUseCase,
         { provide: TaskRepository, useClass: PrismaTaskRepository },
-        LlmGeminiService,
+        ExtractTaskUseCase,
+        { provide: LlmClient, useClass: GeminiLlmClient },
     ],
 })
 export class TaskModule {}

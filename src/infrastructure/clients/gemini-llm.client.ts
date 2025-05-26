@@ -1,31 +1,27 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
-import { ChatPromptTemplate } from '@langchain/core/prompts';
+import { LlmClient } from '@application/clients/llm.client';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
-import { LlmClient } from './llm-client.interface';
 
 @Injectable()
-export class LlmGeminiService implements LlmClient, OnModuleInit {
-    private model: ChatGoogleGenerativeAI;
-    private promptTemplate: any;
-    private readonly apiKey: string = process.env.GOOGLE_API_KEY || '';
-
-    async onModuleInit(): Promise<void> {
-        await this.connect();
+export class GeminiLlmClient extends LlmClient implements OnModuleInit {
+    private model: any;
+    constructor() {
+        super();
     }
-
-    private async connect(): Promise<void> {
+    onModuleInit() {
         this.model = new ChatGoogleGenerativeAI({
             model: 'gemini-2.0-flash',
             temperature: 0.5,
             maxRetries: 2,
             maxOutputTokens: 2000,
-            apiKey: this.apiKey,
+            apiKey: process.env.GOOGLE_API_KEY || '',
         });
     }
 
-    private;
-
-    async generateText(systemPrompt: string, userPrompt: string): Promise<any> {
+    async generateText(
+        systemPrompt: string,
+        userPrompt: string,
+    ): Promise<string> {
         const response = await this.model.invoke([
             {
                 role: 'system',

@@ -9,15 +9,11 @@ import {
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { ExtractTaskDto } from './dto/extract-task.dto';
-import { ExtractTaskService } from './extract-task.service';
 import { TaskService } from './task.service';
 
 @Controller('task')
 export class TaskController {
-    constructor(
-        private readonly taskService: TaskService,
-        private readonly extractTaskService: ExtractTaskService,
-    ) {}
+    constructor(private readonly taskService: TaskService) {}
 
     @Get()
     getTask(): string {
@@ -33,8 +29,8 @@ export class TaskController {
         return this.taskService.postCreate(createTaskDto, req.user);
     }
 
-    // @Post('extract')
-    // async postExtract(@Body() extractTaskDto: ExtractTaskDto): Promise<any> {
-    //   return this.extractTaskService.postExtract(extractTaskDto);
-    // }
+    @Post('extract')
+    async postExtract(@Body() extractTaskDto: ExtractTaskDto): Promise<any> {
+        return this.taskService.postExtract(extractTaskDto);
+    }
 }
